@@ -15,9 +15,18 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
-        vel = new Vector2(
-            Input.GetAxis("Horizontal"), 
-            Input.GetAxis("Vertical"));
+        vel = Vector2.zero;
+        if (Input.GetKey(KeyCode.A)) {
+            vel.x = -1;
+        } else if (Input.GetKey(KeyCode.D)) {
+            vel.x = 1;
+        }
+
+        if (Input.GetKey(KeyCode.W)) {
+            vel.y = 1;
+        } else if (Input.GetKey(KeyCode.S)) {
+            vel.y = -1;
+        }
     }
 
     private void FixedUpdate()
