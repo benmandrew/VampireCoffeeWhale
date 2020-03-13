@@ -5,32 +5,32 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour {
-    public float speed = 5.0f;
-    public Vector2 vel;
+    public float speed = 100.0f;
+    public float velX;
     private Rigidbody2D rb2D;
     
     void Start() {
         rb2D = GetComponent<Rigidbody2D>();
-        vel = Vector2.zero;
+        velX = 0.0f;
     }
 
     void Update() {
-        vel = Vector2.zero;
+        velX = 0.0f;
         if (Input.GetKey(KeyCode.A)) {
-            vel.x = -1;
+            velX = -1.0f;
         } else if (Input.GetKey(KeyCode.D)) {
-            vel.x = 1;
+            velX = 1.0f;
         }
 
-        if (Input.GetKey(KeyCode.W)) {
-            vel.y = 1;
-        } else if (Input.GetKey(KeyCode.S)) {
-            vel.y = -1;
+        if (Input.GetKeyDown(KeyCode.W)) {
+            rb2D.velocity = new Vector2(
+                rb2D.velocity.x, 10f);
         }
     }
 
-    private void FixedUpdate()
-     {
-         rb2D.MovePosition(rb2D.position + vel * speed * Time.fixedDeltaTime);
-     }
+    void FixedUpdate() {
+        rb2D.velocity = new Vector2(
+            velX * speed * Time.fixedDeltaTime,
+            rb2D.velocity.y);
+    }
 }
